@@ -19,8 +19,8 @@ This will start the GoLang Gin server to server the app content and host the API
 
 ---
 
-Pablo Gamito – [pablo.gamito.me](https://pablogamito.com) – pablo@gamito.me
+### Meta
 
-Distributed under the GNU General Public License v3.0. See ``LICENSE.md`` for more information.
+By Pablo Gamito – [pablo.gamito.me](https://pablogamito.com)
 
-[https://github.com/PabiGamito/fyture](https://github.com/PabiGamito/fyture)
+[Fyture](https://github.com/PabiGamito/fyture) is distributed under the GNU General Public License v3.0. See ``LICENSE.md`` for more information.
