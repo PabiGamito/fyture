@@ -78,12 +78,15 @@ func CreateFeature(c *gin.Context) {
 		return
 	}
 
+	user := c.MustGet("user").(*models.User)
+
 	// Create Feature
 	feature := models.Feature{
 		Title:     input.Title,
 		Details:   input.Details,
 		UpVotes:   1,
 		CreatedAt: time.Now().Unix(),
+		UserID:    user.ID,
 	}
 	db.Create(&feature)
 

@@ -51,14 +51,23 @@ func main() {
 
 	// API
 	api := r.Group("/api")
+	// Unauthenticated endpoints
 	{
 		api.GET("/features", controllers.FindFeatures)
 		api.GET("/feature/:id", controllers.FindFeature)
-		api.POST("/feature", controllers.CreateFeature)
-		api.PATCH("/feature/:id", controllers.UpdateFeature)
-		api.DELETE("/feature/:id", controllers.DeleteFeature)
+	}
+	// Authenticated endpoints
+	{
+		authenticatedAPI := api.Group("/")
+		authenticatedAPI.Use(auth.AuthenticationRequired)
+		{
+			authenticatedAPI.POST("/feature", controllers.CreateFeature)
+			authenticatedAPI.PATCH("/feature/:id", controllers.UpdateFeature)
+			authenticatedAPI.DELETE("/feature/:id", controllers.DeleteFeature)
 
-		api.POST("/feature/upvote/:id", controllers.UpVote)
+			authenticatedAPI.POST("/feature/upvote/:id", controllers.UpVote)
+		}
+
 	}
 
 	r.Run("0.0.0.0:8080")
