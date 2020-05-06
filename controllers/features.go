@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"feature-requests/models"
 	"fmt"
+	"fyture/models"
 	"net/http"
 	"strconv"
 	"time"

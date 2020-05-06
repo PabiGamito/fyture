@@ -1,11 +1,17 @@
 package main
 
 import (
-	"feature-requests/controllers"
-	"feature-requests/models"
+	"os"
 
+	"github.com/gin-contrib/location"
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
+
+	"fyture/controllers"
+	"fyture/controllers/auth"
+	"fyture/models"
 )
 
 func main() {
@@ -13,6 +19,15 @@ func main() {
 	r := gin.Default()
 	r.Use(gin.Logger())
 	r.Delims("{{", "}}")
+
+	// configure to automatically detect scheme and host
+	// - use http when default scheme cannot be determined
+	// - use localhost:8080 when default host cannot be determined
+	r.Use(location.Default())
+
+	// Setup sessions
+	store := cookie.NewStore([]byte(os.Getenv("COOKIE_SECRET")))
+	r.Use(sessions.Sessions("session", store))
 
 	db := models.SetupModels()
 
@@ -24,11 +39,17 @@ func main() {
 
 	// Server Vue app
 	r.Use(static.Serve("/", static.LocalFile("./dist", false)))
-	// r.NoRoute(func(c *gin.Context) {
-	// 	c.File("./dist/index.html")
-	// })
+	r.GET("/feature/:id", func(c *gin.Context) {
+		c.File("./dist/index.html")
+	})
 
-	// Feature API
+	// Auth
+	r.GET("/auth/google", auth.GoogleLogin)
+	r.GET("/auth/callback/google", auth.GoogleLoginCallback)
+
+	r.GET("/auth/getToken", auth.GetAuthToken)
+
+	// API
 	api := r.Group("/api")
 	{
 		api.GET("/features", controllers.FindFeatures)
