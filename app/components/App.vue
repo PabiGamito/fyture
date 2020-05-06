@@ -1,5 +1,6 @@
 <template lang="pug">
 .app
+  LoginModal
   Header(appName="My App")
   .content
     transition(name="fade" mode="out-in" :duration="{ enter: 300, leave: 300 }" appear)
@@ -16,6 +17,7 @@ import TextareaAutosize from "vue-textarea-autosize";
 import Header from "./Header.vue";
 import Home from "./Home.vue";
 import Feature from "./Feature.vue";
+import LoginModal from "./LoginModal.vue";
 
 Vue.use(VueRouter);
 Vue.use(Sticky);
@@ -50,6 +52,6 @@ const routes = [
 export default {
   name: "App",
   router: new VueRouter({ routes, mode: "history" }),
-  components: { Header }
+  components: { Header, LoginModal }
 };
 </script>

@@ -42,6 +42,12 @@ export default {
       if (response.ok) {
         const data = await response.json();
         this.$router.push({ path: `/feature/${data.id}` });
+      } else {
+        if (response.status == 401) {
+          this.$modal.show("login");
+          // Unauthorized, promt user to login
+          console.log(response);
+        }
       }
 
       // TODO: Handle failure

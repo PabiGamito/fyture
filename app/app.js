@@ -4,6 +4,7 @@
 
 import Vue from "vue"
 import Vuex from "vuex"
+import VModal from "vue-js-modal"
 import 'babel-polyfill'
 
 import App from "./components/App.vue"
@@ -20,6 +21,9 @@ let init = () => {
 
 	// Store
 	Vue.use(Vuex)
+
+	// Modal
+	Vue.use(VModal, { dialog: true, dynamic: true });
 
 	const store = {
 		state: {},
