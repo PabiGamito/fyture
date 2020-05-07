@@ -50,6 +50,16 @@ export default {
         if (response.status == 401) {
           // Unauthorized, promt user to login
           this.$modal.show("login");
+
+          const callback = () => {
+            this.$root.$off("loggedIn", callback);
+            this.$modal.hide("login");
+
+            // Resubmit
+            this.submitRequest(e);
+          };
+
+          this.$root.$on("loggedIn", callback);
         }
       }
 

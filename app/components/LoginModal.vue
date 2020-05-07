@@ -29,11 +29,13 @@ export default {
   methods: {
     launchAuthWindows(authURL) {
       const authWindow = window.open(authURL);
-      authWindow.onClose = function(authenticationSuccessUrl) {
-        alert("onClose called.");
-        authWindow.close();
-        // Run auth callback
-      };
+
+      const timer = setInterval(() => {
+        if (authWindow.closed) {
+          clearInterval(timer);
+          this.$root.$emit("loggedIn", {});
+        }
+      }, 1000);
     }
   }
 };
