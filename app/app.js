@@ -5,6 +5,12 @@
 import Vue from "vue"
 import Vuex from "vuex"
 import VModal from "vue-js-modal"
+
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faGithub, faTwitter, faFacebookF } from '@fortawesome/free-brands-svg-icons'
+
 import 'babel-polyfill'
 
 import App from "./components/App.vue"
@@ -23,7 +29,10 @@ let init = () => {
 	Vue.use(Vuex)
 
 	// Modal
-	Vue.use(VModal, { dialog: true, dynamic: true });
+	Vue.use(VModal, { dialog: true, dynamic: true })
+
+	library.add(faGithub, faTwitter, faFacebookF)
+	Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 	const store = {
 		state: {},

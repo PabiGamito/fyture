@@ -1,6 +1,7 @@
 package main
 
 import (
+	"net/http"
 	"os"
 
 	"github.com/gin-contrib/location"
@@ -19,6 +20,9 @@ func main() {
 	r := gin.Default()
 	r.Use(gin.Logger())
 	r.Delims("{{", "}}")
+
+	// Setup static html templates
+	r.LoadHTMLGlob("./templates/*.html")
 
 	// configure to automatically detect scheme and host
 	// - use http when default scheme cannot be determined
@@ -44,10 +48,16 @@ func main() {
 	})
 
 	// Auth
-	r.GET("/auth/google", auth.GoogleLogin)
-	r.GET("/auth/callback/google", auth.GoogleLoginCallback)
+	authR := r.Group("/auth")
+	{
+		authR.GET("/google", auth.GoogleLogin)
+		authR.GET("/callback/google", auth.GoogleLoginCallback)
 
-	r.GET("/auth/getToken", auth.GetAuthToken)
+		authR.GET("/getToken", auth.GetAuthToken)
+		authR.GET("/success", func(c *gin.Context) {
+			c.HTML(http.StatusOK, "authSuccess.html", nil)
+		})
+	}
 
 	// API
 	api := r.Group("/api")

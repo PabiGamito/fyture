@@ -1,17 +1,21 @@
 <template lang="pug">
-.feature-request-box
-  .title Suggest a feature
-  .description Let us know what you want to see in our app.
+div
+  .feature-request-box
+    .title Suggest a feature
+    .description Let us know what you want to see in our app.
 
-  form(@submit="submitRequest")
-    .text-input(v-on:click="focusInput")
-      label Title
-      input(type="text", name="title", placeholder="Short, descriptive title", required=true, autocomplete="off", v-model="title").title
-    .textarea(v-on:click="focusInput")
-      label Details
-      textarea-autosize(name="details", placeholder="Any additional details", required=true, autocomplete="off", v-model="details", :min-height="60", :max-height="200").details
+    form(@submit="submitRequest")
+      .text-input(v-on:click="focusInput")
+        label Title
+        input(type="text", name="title", placeholder="Short, descriptive title", required=true, autocomplete="off", v-model="title").title
+      .textarea(v-on:click="focusInput")
+        label Details
+        textarea-autosize(name="details", placeholder="Any additional details", required=true, autocomplete="off", v-model="details", :min-height="60", :max-height="200").details
 
-    button(type="submit") Suggest Feature
+      button(type="submit") Suggest Feature
+  
+  .powered-by
+    a(href="" target="_blank") Powered by Fyture
 </template>
 
 <script>
@@ -44,9 +48,8 @@ export default {
         this.$router.push({ path: `/feature/${data.id}` });
       } else {
         if (response.status == 401) {
-          this.$modal.show("login");
           // Unauthorized, promt user to login
-          console.log(response);
+          this.$modal.show("login");
         }
       }
 
@@ -77,6 +80,9 @@ export default {
     font-weight: 300
     font-size: 14px
     text-align: center
+
+  form
+    margin: 0
 
   .text-input, .textarea
     border: 1px solid #efefef
@@ -134,4 +140,18 @@ export default {
 
     &:hover
       background: rgb(255, 223, 176, 0.8)
+
+.powered-by
+  font-family: 'Montserrat', sans-serif
+  color: #888
+  padding: 15px
+  text-align: center
+  font-size: 11px
+
+  a
+    text-decoration: none
+    color: #888
+
+    &:hover
+      color: #666
 </style>

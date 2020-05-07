@@ -69,7 +69,7 @@ func GoogleLoginCallback(c *gin.Context) {
 		c.Redirect(http.StatusTemporaryRedirect, "/auth/google")
 	}
 
-	c.JSON(200, userProfile)
+	c.Redirect(http.StatusTemporaryRedirect, "/auth/success")
 }
 
 func googleOAuthConfig(scheme string, host string) oauth2.Config {
