@@ -20,7 +20,7 @@
     "babel-preset-env": "^1.7.0",
     "cssnano": "~4.1.7",
     "parcel": "~1.12.4",
-    "pug": "^2.0.4",
+    "pug": "^3.0.1",
     "sass": "^1.26.5",
     "stylus": "^0.54.7",
     "vue-hot-reload-api": "^2.3.4",
